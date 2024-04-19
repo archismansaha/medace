@@ -5,7 +5,7 @@ const generateAccessToken = (userId,clientId ) => {
 	const accessToken = jwt.sign(
 		{
 			id: userId,
-			client:clientId,
+		
 		},
 		'SECRET',
 		{ expiresIn: '7d' }
