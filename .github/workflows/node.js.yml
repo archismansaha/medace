@@ -48,6 +48,7 @@ jobs:
           aws configure set aws_access_key_id AKIAWQW77LIQFMYYMRM3
           aws configure set aws_secret_access_key YbtdP8YbjNwA9lrb6SUFdRPjy/XtnZijmru5KmOP
           aws configure set region eu-north-1  # Replace with your region
+          aws ecr get-authorization-token --region eu-north-1 --profile my-ecr-profile | docker login --username AWS --password-stdin 448220060192.dkr.ecr.eu-north-1.amazonaws.com
 
       - name: Install Dependencies
         uses: actions/setup-node@v3
