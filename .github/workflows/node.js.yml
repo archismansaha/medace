@@ -1,84 +1,28 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
-# name: Node.js CI
-
-# on:
-#   push:
-#     branches: [ "main" ]
-
-# jobs:
-#   build:
-
-#     runs-on:  self-hosted
-
-#     strategy:
-#       matrix:
-#         node-version: [18.x]
-#         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-#     steps:
-#     - uses: actions/checkout@v3
-#     - name: Use Node.js ${{ matrix.node-version }}
-#       uses: actions/setup-node@v3
-#       with:
-#         node-version: ${{ matrix.node-version }}
-#         cache: 'npm'
-#     - run: npm ci
-#     - run: pm2 restart medace_git
-
-name: ECS Deploy
+name: Node.js CI
 
 on:
   push:
-    branches: [ main ]  # Trigger on pushes to the main branch
+    branches: [ "main" ]
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest  # Replace with the runner you need (e.g., ubuntu-latest, windows-latest)
+  build:
+
+    runs-on:  self-hosted
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Configure AWS credentials
-        env:
-          AWS_ACCESS_KEY_ID: AKIAWQW77LIQFMYYMRM3
-          AWS_SECRET_ACCESS_KEY: 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
-        run: |
-          aws configure --profile my-ecr-profile set aws_access_key_id AKIAWQW77LIQFMYYMRM3
-          aws configure --profile my-ecr-profile set aws_secret_access_key YbtdP8YbjNwA9lrb6SUFdRPjy/XtnZijmru5KmOP
-          aws configure --profile my-ecr-profile set region eu-north-1  # Replace with your region
-          aws ecr get-authorization-token --region eu-north-1 --profile my-ecr-profile | docker login --username AWS --password-stdin 448220060192.dkr.ecr.eu-north-1.amazonaws.com
-
-      - name: Install Dependencies
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: npm ci
-
-      - name: Install pm2 globally (if necessary)
-        # Check if pm2 is already installed globally
-        run: |
-          if ! [ -x "$(command -v pm2)" ]; then npm install -g pm2; fi
-
-      - name: Login to ECR
-        run: |
-          aws ecr get-authorization-token --region eu-north-1 | jq -r '.authorizationData[0].authorizationToken' | docker login --username AWS --password-stdin 448220060192.dkr.ecr.eu-north-1.amazonaws.com/test_nest_backend
-
-      - name: Build Docker image
-        run: |
-          # Replace with your specific build command (e.g., docker build -t ...)
-          docker build -t 448220060192.dkr.ecr.eu-north-1.amazonaws.com/test_nest_backend:latest .
-
-      - name: Push Docker image to ECR
-        run: |
-          docker push 448220060192.dkr.ecr.eu-north-1.amazonaws.com/test_nest_backend:latest
-
-      # - name: Update ECS task definition (replace with your specific steps)
-        # Refer to the AWS documentation for details on updating task definitions:
-        # https://docs.aws.amazon.com/AmazonECS/latest/developerguide/update-task-definition-console-v2.html
-        # This might involve using the AWS CLI or SDK to update the task definition with the new image URI.
-
-
-
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: pm2 restart medace_git
