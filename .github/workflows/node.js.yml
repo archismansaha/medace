@@ -68,7 +68,7 @@ jobs:
       - name: Build Docker image
         run: |
           # Replace with your specific build command (e.g., docker build -t ...)
-          docker build -t <YOUR_ECR_REPOSITORY_URI>/<YOUR_IMAGE_NAME>:latest .
+          docker build -t 448220060192.dkr.ecr.eu-north-1.amazonaws.com/test_nest_backend:latest .
 
       - name: Push Docker image to ECR
         run: |
