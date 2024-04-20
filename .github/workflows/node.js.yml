@@ -59,7 +59,7 @@ jobs:
 
       - name: Login to ECR
         run: |
-          aws ecr get-authorization-token --region eu-north-1  | jq -r '.authorizationData[0].authorizationToken' | docker login --username AWS --password-stdin 448220060192.dkr.ecr.eu-north-1.amazonaws.com
+          aws ecr get-authorization-token --region eu-north-1 | jq -r '.authorizationData[0].authorizationToken' | docker login --username AWS --password-stdin 448220060192.dkr.ecr.eu-north-1.amazonaws.com
 
       - name: Build Docker image
         run: |
