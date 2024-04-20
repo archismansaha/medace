@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest  # Replace with the runner you need (e.g., ubuntu-latest, windows-latest)
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Configure AWS credentials
         env:
@@ -59,7 +59,7 @@ jobs:
 
       - name: Login to ECR
         run: |
-          aws ecr get-authorization-token --region <YOUR_AWS_REGION> | jq -r '.authorizationData[0].authorizationToken' | docker login --username AWS --password-stdin 448220060192.dkr.ecr.eu-north-1.amazonaws.com
+          aws ecr get-authorization-token --region eu-north-1  | jq -r '.authorizationData[0].authorizationToken' | docker login --username AWS --password-stdin 448220060192.dkr.ecr.eu-north-1.amazonaws.com
 
       - name: Build Docker image
         run: |
