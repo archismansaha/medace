@@ -70,7 +70,7 @@ jobs:
         run: |
           docker push 448220060192.dkr.ecr.eu-north-1.amazonaws.com/test_nest_backend:latest
 
-      - name: Update ECS task definition (replace with your specific steps)
+      # - name: Update ECS task definition (replace with your specific steps)
         # Refer to the AWS documentation for details on updating task definitions:
         # https://docs.aws.amazon.com/AmazonECS/latest/developerguide/update-task-definition-console-v2.html
         # This might involve using the AWS CLI or SDK to update the task definition with the new image URI.
