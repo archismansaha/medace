@@ -42,11 +42,11 @@ jobs:
 
       - name: Configure AWS credentials
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: AKIAWQW77LIQFMYYMRM3
+          AWS_SECRET_ACCESS_KEY: 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
         run: |
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set aws_access_key_id AKIAWQW77LIQFMYYMRM3
+          aws configure set aws_secret_access_key YbtdP8YbjNwA9lrb6SUFdRPjy/XtnZijmru5KmOP
           aws configure set region eu-north-1  # Replace with your region
 
       - name: Install Dependencies
